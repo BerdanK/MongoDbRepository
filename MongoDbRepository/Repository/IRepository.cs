@@ -16,6 +16,8 @@ namespace MongoDbRepository.Repository
 
         Task<T> GetById(TKey id);
 
+        IAggregateFluent<T> GetAggregate();
+
         Task Add(T entity);
 
         Task Update(TKey id, UpdateDefinition<T> update, FindOneAndUpdateOptions<T> options = null);

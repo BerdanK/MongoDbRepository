@@ -1,11 +1,10 @@
-﻿using MongoDB.Bson;
+﻿using System.Threading;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDbRepository.Base;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MongoDbRepository.Repository
@@ -45,6 +44,13 @@ namespace MongoDbRepository.Repository
         {
             var filter = Builders<T>.Filter.Eq(x => x.Id, id);
             return await _collection.Find(filter).FirstAsync();
+        }
+
+        public IAggregateFluent<T> GetAggregate()
+        {
+            //var pipeline = new PipelineStagePipelineDefinition<T, T>(stages);
+            //return await _collection.AggregateAsync(pipeline, options, cancellationToken);
+            return _collection.Aggregate();
         }
 
         public async Task Add(T entity)
