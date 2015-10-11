@@ -19,6 +19,12 @@ namespace MongoDbRepository
             return ConfigurationManager.AppSettings["Database"];
         }
 
+        public static string GetCollectionName<T>()
+        {
+            var attribute = Attribute.GetCustomAttribute(typeof (T), typeof (CollectionName));
+            return attribute == null ? typeof (T).Name : ((CollectionName) attribute).Name;
+        }
+
         public static MongoClientSettings GetMongoClientSettings()
         {
             return new MongoClientSettings

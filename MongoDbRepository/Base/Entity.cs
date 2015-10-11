@@ -3,9 +3,9 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace MongoDbRepository.Base
 {
-    public abstract class Entity : IEntity<ObjectId>
+    public abstract class Entity : IEntity<string>
     {
-        [BsonId]
-        public virtual ObjectId Id { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public virtual string Id { get; set; }
     }
 }
