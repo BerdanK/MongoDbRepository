@@ -18,7 +18,6 @@ namespace MongoDbRepository.Repository
         }
         private BaseRepository(string connectionString)
         {
-            //_collection = new MongoClient(connectionString).GetDatabase(Utils.GetDatabaseName()).GetCollection<T>(typeof(T).Name);
             _collection =
                 new MongoClient(connectionString).GetDatabase(Utils.GetDatabaseName())
                     .GetCollection<T>(Utils.GetCollectionName<T>());
@@ -62,10 +61,13 @@ namespace MongoDbRepository.Repository
             return await _collection.DistinctAsync<TField>(fieldName, filter).Result.ToListAsync();
         }
 
+        public async Task<long> GetCount(Expression<Func<T, bool>> search)
+        {
+            return await _collection.CountAsync(search);
+        }
+
         public IAggregateFluent<T> GetAggregate()
         {
-            //var pipeline = new PipelineStagePipelineDefinition<T, T>(stages);
-            //return await _collection.AggregateAsync(pipeline, options, cancellationToken);
             return _collection.Aggregate();
         }
 

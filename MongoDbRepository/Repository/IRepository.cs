@@ -22,13 +22,9 @@ namespace MongoDbRepository.Repository
         Task<List<TView>> GetAll<TView>(FilterDefinition<T> search, ProjectionDefinition<T, TView> projection = null,
             SortDefinition<T> sort = null);
 
-        //Task<List<T>> FindBy(Expression<Func<T, bool>> predicate);
-
-        //Task<List<T>> FindBy(FilterDefinition<T> predicate);
-
         Task<List<TField>> Distinct<TField>(string fieldName, FilterDefinition<T> filter);
 
-        //Task<T> GetById(TKey id);
+        Task<long> GetCount(Expression<Func<T, bool>> search);
 
         IAggregateFluent<T> GetAggregate();
 
